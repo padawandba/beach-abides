@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Beach Abides</title>
+  <link rel="icon" href="https://ssl.gstatic.com/atari/images/public/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700|Merriweather:400,700|Comfortaa:400,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Merriweather', serif;
+      font-size: 11pt;
+      color: #212121;
+      line-height: 1.6;
+      background: #fff;
+    }
+
+    /* Navigation */
+    .nav-bar {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    .nav-title {
+      font-family: 'PT Sans', Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #212121;
+      text-decoration: none;
+      padding: 12px 16px 12px 0;
+      white-space: nowrap;
+      margin-right: 8px;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0;
+    }
+    .nav-links a {
+      font-family: 'PT Sans', Arial, sans-serif;
+      font-size: 14px;
+      color: #212121;
+      text-decoration: none;
+      padding: 14px 12px;
+      white-space: nowrap;
+      display: block;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      border-bottom-color: #1A73E8;
+      color: #1A73E8;
+    }
+
+    /* Mobile nav toggle */
+    .nav-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; padding: 12px; }
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .nav-links { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 24px; border-bottom: none; }
+      .nav-inner { flex-wrap: wrap; }
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      line-height: 0;
+    }
+    .hero img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Content */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 48px 0;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    section:last-child { border-bottom: none; }
+
+    .welcome {
+      text-align: center;
+      padding: 48px 0 24px;
+      border-bottom: none;
+    }
+    .welcome .subtitle {
+      font-family: 'PT Sans', Arial, sans-serif;
+      font-size: 15px;
+      color: #212121;
+    }
+    .welcome .main-title {
+      font-family: 'PT Sans', Arial, sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #0000ff;
+    }
+
+    .intro {
+      text-align: center;
+      padding: 0 0 32px;
+      border-bottom: none;
+    }
+
+    h2 {
+      font-family: 'PT Sans', Arial, sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+      color: #212121;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-family: 'PT Sans', Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #212121;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    p { margin-bottom: 12px; }
+
+    ul {
+      margin: 8px 0 12px 24px;
+    }
+    li { margin-bottom: 6px; }
+
+    a { color: #155CB2; }
+    a:hover { text-decoration: underline; }
+
+    strong { font-weight: 700; }
+
+    .section-img {
+      max-width: 100%;
+      height: auto;
+      margin: 16px 0;
+      border-radius: 4px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-img--wide {
+      width: 100%;
+      max-width: none;
+    }
+
+    .info-grid {
+      margin: 16px 0;
+    }
+    .info-grid p {
+      margin-bottom: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background: #f5f5f5;
+      text-align: center;
+      padding: 24px;
+      font-size: 10pt;
+      color: #666;
+      border-top: 1px solid #e0e0e0;
+    }
+    footer a { color: #155CB2; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-inner">
+      <a href="#top" class="nav-title">The Beach Abides</a>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="#important-info">Info</a></li>
+        <li><a href="#house-rules">Rules</a></li>
+        <li><a href="#check-in-out">Check-In/Out</a></li>
+        <li><a href="#wifi-tvs">Wi-Fi</a></li>
+        <li><a href="#kitchen-laundry">Kitchen</a></li>
+        <li><a href="#getting-around">Getting Around</a></li>
+        <li><a href="#emergency-info">Emergency</a></li>
+        <li><a href="#accessibility">Accessibility</a></li>
+        <li><a href="#contact-us">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <div id="top" class="hero">
+    <img src="images/banner-image.png" alt="Welcome to The Beach Abides">
+  </div>
+
+  <div class="content">
+
+    <div class="intro">
+      <p>Thank you for choosing our beachside home for your stay in St. Augustine! We're thrilled to share our little slice of paradise with you. Here is your guide for a comfortable, enjoyable, stress-free stay.</p>
+    </div>
+
+    <!-- Important Info -->
+    <section id="important-info">
+      <h2>Important Info</h2>
+
+      <p><strong>Address</strong>: 317 Royal Caribbean Court, St. Augustine, FL 32080<br>
+      <strong>Max Occupancy</strong>: 8 guests</p>
+
+      <h3>Key Features</h3>
+      <ul>
+        <li>On the beach-side of A1A &mdash; a 6-minute walk to the beach</li>
+        <li>Two community pools (one outside your back door)</li>
+        <li>Fully equipped kitchen, Wi-Fi, smart TVs, washer/dryer</li>
+        <li>Private patio with outdoor seating</li>
+        <li><strong>Parking</strong>: One car in the driveway and any available spots in the parking lot</li>
+        <li><strong>Beach Gear</strong>: Towels in the hallway basket. Beach chairs and boogie boards in the garage.</li>
+      </ul>
+
+      <h3>Beach Access</h3>
+      <p>Follow signs to the beach. It takes about 6 minutes to walk via parking lots and path. To return from the beach, the path is outlined in the photo below.</p>
+
+      <img class="section-img section-img--wide" src="images/beach-access-map.png" alt="Map showing path to beach">
+
+      <p><strong>Pools and Tennis Courts</strong>: You have access to two pools. One outside the back door and one on the way to the beach. The Pools and Tennis courts are annotated in the photo below.&nbsp;</p>
+
+      <img class="section-img section-img--wide" src="images/pools-and-tennis-courts.jpg" alt="Map showing pools and tennis courts">
+    </section>
+
+    <!-- House Rules -->
+    <section id="house-rules">
+      <h2>House Rules</h2>
+      <p>To ensure a great experience for everyone, please follow these guidelines:</p>
+      <ul>
+        <li><strong>No Smoking</strong> &mdash; Smoking or vaping is not allowed inside or on the patio.</li>
+        <li><strong>No Pets</strong> &mdash; We love furry friends, but pets are not permitted due to allergies.</li>
+        <li><strong>No Parties or Events</strong> &mdash; Quiet hours are from 10:00 PM to 8:00 AM to respect neighbors.</li>
+        <li><strong>Furniture</strong> &mdash; Please don't place suitcases on top of dressers. They are refurbished and the paint is still curing. Please don't try to open locked closets.</li>
+        <li><strong>Trash</strong> &mdash; Place in the dumpster at the end of the parking lot.</li>
+        <li><strong>Pool Rules</strong> &mdash; Open 8:00 AM to 8:00 PM. No glass containers allowed; children must be supervised.</li>
+        <li><strong>Beach Gear</strong> &mdash; Rinse sand off (there are hoses and showers on the walkway to the beach) and shake out towels before bringing them inside.</li>
+        <li><strong>Energy Conservation</strong> &mdash; Turn lights off and set AC to 75&deg;F when leaving.</li>
+      </ul>
+    </section>
+
+    <!-- Check-In/Check-Out -->
+    <section id="check-in-out">
+      <h2>Check-In/Check-Out</h2>
+
+      <h3>Check-In (after 4:00 PM)</h3>
+      <p>To unlock the front door, enter the provided code on the keypad, then <strong>press the button</strong> below the keyhole.</p>
+
+      <img class="section-img" src="images/ultraloq-lock.jpg" alt="Door lock keypad">
+
+      <h3>Check-Out (by 11:00 AM)</h3>
+      <ul>
+        <li>Ensure dishes are clean. It is ok to start a load of dishes in the dishwasher on your way out.</li>
+        <li>Put used towels in the tub.</li>
+        <li>Ensure all trash is placed in the outdoor dumpster.</li>
+        <li>Ensure the back door is locked. The front door should automatically lock when you close it, but if not, push the lock button.</li>
+      </ul>
+    </section>
+
+    <!-- Wi-Fi & TVs -->
+    <section id="wifi-tvs">
+      <h2>Wi-Fi &amp; TVs</h2>
+
+      <p><strong>Smart TVs with Roku devices</strong> are located in the living room upstairs and in the bunkbed room downstairs.</p>
+      <ul>
+        <li>Log into your Netflix, Hulu, or other apps with your own accounts.</li>
+        <li>Sign out before leaving.</li>
+      </ul>
+
+      <p><strong>Wi-Fi Network</strong></p>
+      <ul>
+        <li><strong>Network</strong>: Guest - Casa del Temprano</li>
+        <li><strong>Password</strong>: letmeinplease</li>
+      </ul>
+
+      <img class="section-img" src="images/wifi-connection-info.jpg" alt="Wi-Fi and TV setup">
+    </section>
+
+    <!-- Kitchen & Laundry -->
+    <section id="kitchen-laundry">
+      <h2>Kitchen &amp; Laundry</h2>
+
+      <h3>Kitchen</h3>
+      <ul>
+        <li>Cookware and utensils are fully stocked</li>
+        <li><strong>Keurig coffee maker</strong> &mdash; Some K-cups are available on the counter</li>
+        <li><strong>Toaster oven</strong> &mdash; To set, see <a href="https://photos.app.goo.gl/3jcCdPk9vr1SjGe1A" target="_blank">this image</a></li>
+        <li><strong>Dishwasher</strong> &mdash; Detergent pods are under the sink. Just throw one in the bottom and follow <a href="https://photos.app.goo.gl/ne7h6QpPJ2U4UsJJA" target="_blank">this video</a>. The door will automagically open when the cycle is complete.</li>
+        <li><strong>Garbage Disposal</strong> &mdash; The switch is on the wall, below the BEACH clock, next to the light dimmer switch for the kitchen bar area</li>
+      </ul>
+
+      <h3>Laundry</h3>
+      <ul>
+        <li>Washer and dryer are in the front of the garage. Some starter detergent is provided.</li>
+        <li>Please DO NOT wash sandy towels or clothes; shake them outside.</li>
+      </ul>
+    </section>
+
+    <!-- Getting Around -->
+    <section id="getting-around">
+      <h2>Getting Around</h2>
+      <ul>
+        <li><strong>Driving on the beach</strong> &mdash; If you have a 4WD vehicle, you can drive on nearly 12 miles of beach for a nominal fee. Check <a href="https://www.sjcfl.us/beach-driving-updates/" target="_blank">current conditions</a> and <a href="https://www.sjcfl.us/beach-services/beach-access/" target="_blank">beach access info</a>.</li>
+        <li><strong>Parks and Playgrounds</strong> &mdash; <a href="https://www.sjcfl.us/park-facilities/" target="_blank">SJC Park Facilities</a></li>
+        <li><strong>Sun UV Exposure</strong> &mdash; <a href="https://uv.willyweather.com/fl/st-johns-county/butler-beach.html" target="_blank">Butler Beach UV Predictions</a></li>
+        <li><strong>Tide Predictions</strong> &mdash; <a href="https://www.sjcfl.us/tide-predictions/" target="_blank">SJC Tide Predictions</a></li>
+      </ul>
+    </section>
+
+    <!-- Emergency Information -->
+    <section id="emergency-info">
+      <h2>Emergency Information</h2>
+
+      <h3>House Safety</h3>
+      <ul>
+        <li><strong>Fire Extinguishers</strong> &mdash; One under the kitchen sink; another in the garage near the door. There is also a fire blanket under the kitchen sink.</li>
+        <li><strong>Smoke/Carbon Monoxide Detectors</strong> &mdash; Installed in bedrooms and living areas. Contact us if they beep.</li>
+        <li><strong>Exterior Security Camera</strong> in the doorbell.</li>
+        <li><strong>Hurricane Info</strong> &mdash; If a storm approaches, follow local news (WJXT Channel 4) and our instructions via Airbnb messaging.</li>
+        <li><strong>Water Shutoff</strong> &mdash; As you exit the garage, it's on the ground to the left (North side &mdash; see image below). Remove the round access cover and turn the handle 90 degrees to shut it off.</li>
+      </ul>
+
+      <img class="section-img" src="images/water-shutoff.jpg" alt="Water shutoff location">
+    </section>
+
+    <!-- Accessibility -->
+    <section id="accessibility">
+      <h2>Accessibility</h2>
+
+      <h3>Our Home</h3>
+      <p>The 1st level has some accessibility improvements with a cement ramp from the garage to the entry hall, and no steps going out the back to the pool. Also, there is a mini refrigerator in the garage. Note that our home is a townhouse with the main bedroom, kitchen, dining room, and living room on the second level. You must navigate stairs to get to the second level.</p>
+
+      <h3>St Augustine Accessibility</h3>
+      <p>General info on where to go: <a href="https://www.visitstaugustine.com/article/accessibility-st-augustine" target="_blank">https://www.visitstaugustine.com/article/accessibility-st-augustine</a></p>
+
+      <h3>Crescent Beach Accessible Ramp</h3>
+      <p>New July 2025 and just 3 miles away. <a href="https://www.sjcfl.us/crescent-beachfront-park-ada-walkover-ribbon-cutting/" target="_blank">More info</a> | <a href="https://www.youtube.com/watch?v=-1B49OjnM4g" target="_blank">Ribbon cutting video</a></p>
+      <ul>
+        <li><strong>Southern Boardwalk</strong> &mdash; 150-foot boardwalk with 26 stairs</li>
+        <li><strong>Northern Boardwalk</strong> &mdash; ADA-accessible ramp that ends in soft sand. ~30 feet of soft sand to reach hard-packed sand. Plan months in advance to get a beach wheelchair delivered.</li>
+        <li><strong>Drive on the beach</strong> via Cubbedge Road (4WD only)</li>
+        <li>Three picnic tables, ADA-accessible bathrooms, four outdoor showers</li>
+        <li>Two pavilions (each 140&prime; x 20&prime;) with electric &mdash; <a href="https://www.sjcfl.us/special-events-beaches/" target="_blank">reserve here</a></li>
+        <li>Lifeguard tower from Memorial Day Weekend through Labor Day Weekend</li>
+      </ul>
+
+      <h3>Beach Wheel Chairs (FREE)</h3>
+      <p><a href="https://www.sjcfl.us/beach-services/beach-accessible-wheelchairs" target="_blank">https://www.sjcfl.us/beach-services/beach-accessible-wheelchairs</a></p>
+      <p>Beach accessible wheelchairs are available <strong>at no charge</strong> for up to <strong>7 days in a row</strong>. Reserve up to 1 year in advance. Requires a minimum 3 day notification. Reserve via <a href="https://secure.rec1.com/FL/stjohns-county-fl/catalog/index?filter=dGFiJTVCNzkzNCU1RD0xJnNlYXJjaD0" target="_blank">Online Reservation System</a> or contact: <a href="mailto:beaches@sjcfl.us">beaches@sjcfl.us</a> (904) 209-0331. Wheelchairs are delivered to certain beachfront parks, and vehicular access ramps managed by St Johns County. The county secures it using a bicycle lock. The code is provided once your reservation is confirmed.</p>
+    </section>
+
+    <!-- Contact Us -->
+    <section id="contact-us">
+      <h2>Contact Us</h2>
+      <p><strong>We're Here for You!</strong></p>
+      <p>We hope this information helps you settle in and enjoy your stay. St. Augustine's charm, from its sandy shores to its historic streets. If you need recommendations, have questions, or run into any issues, please reach out first <a href="https://www.airbnb.com/rooms/1475686498853471204" target="_blank">on Airbnb</a> and if that doesn't work please use our cell phones. Safe travels and enjoy your beachside retreat!</p>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>The Beach Abides &mdash; 317 Royal Caribbean Court, St. Augustine, FL 32080</p>
+  </footer>
+
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          // Close mobile nav
+          document.querySelector('.nav-links').classList.remove('open');
+        }
+      });
+    });
+
+    // Update active nav link on scroll
+    var sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', function() {
+      var scrollPos = window.scrollY + 80;
+      sections.forEach(function(section) {
+        if (section.offsetTop <= scrollPos && section.offsetTop + section.offsetHeight > scrollPos) {
+          document.querySelectorAll('.nav-links a').forEach(function(a) {
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + section.id) {
+              a.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
